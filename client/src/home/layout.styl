@@ -1,0 +1,73 @@
+body
+  font-size 14px
+  *
+    box-sizing border-box
+    margin 0px
+    padding 0px
+ul
+  margin 0px
+  li
+    list-style none
+p
+  margin 0px
+table
+  border-collapse collapse
+  td
+  th
+    text-align left
+.has-text-success
+  color $color-success !important
+.has-text-warn
+  color $color-warn !important
+.has-text-bold
+  font-weight bold !important
+.has-text-centered
+  text-align center !important
+.has-text-ellipsis
+	overflow hidden
+	text-overflow ellipsis
+	white-space nowrap
+	word-break keep-all
+
+.fade-enter
+.fade-leave-to
+  opacity 0
+.fade-enter-active
+.fade-leave-active
+  transition 300ms
+.fade-enter-to
+.fade-leave
+  opacity 1
+
+.toasted-container
+	&.top-center
+		top 4%
+	&.center
+		top 50%
+		left 50%
+		transform translateX(-50%) translateY(-50%)
+	.toasted
+		top 20px
+		font-size 13px
+		min-height 30px
+		&.primary.success
+			background $color-success
+
+@keyframes alertIn
+	0%
+		transform scale(0)
+		opacity 0
+	60%
+		transform scale(1.1)
+		opacity 1
+	100%
+		transform scale(1.0)
+		opacity 1
+
+@keyframes slideInTop
+	0%
+		transform translateY(-60px)
+		opacity 0
+	100%
+		transform translateY(0)
+		opacity 1
