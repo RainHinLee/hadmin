@@ -38,6 +38,7 @@ export default {
   methods:{
     fetch(){
       this.loading.fetch = true;
+      clearInterval(this.timer);
       this.fetchHandler().then(res=>{
         this.poll();
         this.loading.fetch = false;

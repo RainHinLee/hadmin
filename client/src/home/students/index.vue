@@ -15,7 +15,7 @@
               <tr v-for="item of pageList">
                 <td>{{item.username}}</td>
                 <td>{{item._level_type}}</td>
-                <td><a :href="item._href">Progress</a></td>
+                <td><a :href="item._href" target="_blank">Progress</a></td>
               </tr>
             </template>
           </tbody>
