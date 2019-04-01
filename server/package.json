@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "supervisor --watch routes server.js"
+    "test": "supervisor --watch routes server.js",
+    "start" : "pm2 start server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",

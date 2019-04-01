@@ -8,8 +8,8 @@ const proxyConfig = require('./proxyConfig.js');
 const routes = require('./routes/index.js');
 
 const app = express();
-const port = 18080;
-const PROXY_HOST = "http://dev.hanbridgemandarin.com"
+const port = 38080;
+const PROXY_HOST = "http://dev.hanbridgemandarin.com";
 
 //---设置代理服务器
 Object.keys(proxyConfig).forEach(item=>{
