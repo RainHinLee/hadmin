@@ -78,7 +78,7 @@ ul
   li
     float left
     width 25%
-    padding 10px
+    padding 0px 10px
     &:nth-last-of-type(1)
       margin-right 0px
 

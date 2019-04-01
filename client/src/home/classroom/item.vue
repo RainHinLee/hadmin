@@ -79,7 +79,7 @@ export default {
     height 45px
     border-bottom 1px solid #dbdbdb
     h3
-      font-size 16px
+      font-size 15px
       small
         margin-left 3px
         color $color-warn
