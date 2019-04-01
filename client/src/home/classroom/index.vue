@@ -55,7 +55,7 @@ export default {
 
     poll(){
       clearInterval(this.timer);
-      setInterval(this.fetchHandler.bind(this),10000);
+      this.timer = setInterval(this.fetchHandler.bind(this),10000);
     }
   },
 
