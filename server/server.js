@@ -32,11 +32,12 @@ app.use(bodyParser.json()); // application/json
 app.use(bodyParser.urlencoded({ 'extended': true })); // application/x-www-form-urlencoded
 
 //--页面路由
+app.use("/admin_login/:teacher",routes.admin_login);  //---管理员从汉桥网站登录老师账户
 app.use(routes.session.query)
 app.get('/',routes.home); //--首页
 app.get('/user/login',routes.login)//--登录页
+app.post('/user/login',routes.session.login); //--
 app.get('/user/logout',routes.session.logout)//--登录页
-app.post('/user/login',routes.session.login)
 //--监听端口 ，；，，，
 app.listen(port);
 

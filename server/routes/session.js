@@ -71,6 +71,18 @@ module.exports = {
 		return axios.get(url).then(res=>res.data);
 	},
 
+	findByUsername(username){  //---根据username查找用户
+		var name = username.trim();
+		var url = `${config.path}/user/list/userid/${name}`;
+		return axios.get(url).then(res=>res.data).then(function (res){
+			var list = res['user_list'] || [];
+			var target = [].concat(list).filter(item =>{
+				return item['username'].toLowerCase() == name.toLowerCase()
+			})
+			return target[0] || {};
+		});
+	},
+
 	login(req,res){  //---登录
 		var name = req.body.name
 		var pass= req.body.pass;
