@@ -33,8 +33,8 @@
         <button>Processing</button>
       </template>
       <template v-else>
-        <template v-if='data.classroom_id'>
-          <a :href="data.teacher_url" target='_blank'>Join</a>
+        <template v-if='data.classroom_id && teacher_url'>
+          <a :href="teacher_url" target='_blank'>Join</a>
           <button  @click='request'>Reapply</button>
         </template>
         <template v-else>
@@ -48,11 +48,17 @@
 <script>
 export default {
   props:['data'],
+  data(){
+    return {
+      teacher_url: "",
+    }
+  },
   methods:{
     request(){  //---申请教室
       this.data._requestHandler().then(res=>{
         let {result_code,result_msg} = res;
         if(result_code>=0){
+          this.teacher_url = res['teacher_url'];
           this.$toasted.success("Successful");
         }else{
           return Promise.reject({message: result_msg});
