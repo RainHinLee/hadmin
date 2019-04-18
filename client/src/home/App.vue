@@ -26,26 +26,45 @@
 </template>
 
 <script>
+import util from 'util';
 
-const LINKS = [
-  {path : '/classroom',title: 'Classroom',icon:"icon-zhuye"},
-  {path : '/timeplan',title: 'Open Hours',icon:"icon-shijian1"},
-  {path : '/timetable',title: 'Schedule',icon:"icon-shijianrili1"},
-  {path : '/students',title: 'Students',icon:"icon-haoyouliebiao"},
-]
+const SIZES = {   //--请求失败时重复请求的次数
+  teacher: 0,
+  students: 0
+};
+
+const MAX_SIZE = 5;
 
 export default {
   data(){
     return {
       minHeight: "",
-      links: LINKS
+      links: window.user._links
     }
   },
 
   methods:{
     setMinHeight(){
       this.minHeight = document.documentElement.clientHeight+"px";
-    }
+    },
+
+    fetchTeachers(){  //---老师
+      return util.handlers.option.getAllTeachers(this.$store).catch(err=>{
+        if(SIZES.teacher<=MAX_SIZE){
+          this.fetchTeachers();
+          SIZES.teacher = SIZES.teacher+1;
+        }
+      })
+    },
+
+    fetchStudents(){ //--学生
+      return util.handlers.option.getAllStudents(this.$store).catch(err=>{
+        if(SIZES.student<=MAX_SIZE){
+          this.fetchStudents();
+          SIZES.student = SIZES.student+1;
+        }
+      })
+    },
   },
 
   filters:{
@@ -58,9 +77,12 @@ export default {
 			}
 		}
 	},
+
   mounted(){
     this.setMinHeight();
-    window.addEventListener('resize', this.setMinHeight.bind(this))
+    window.addEventListener('resize', this.setMinHeight.bind(this));
+    this.fetchTeachers();
+    this.fetchStudents();
   }
 }
 
@@ -74,6 +96,7 @@ export default {
   position relative
   color $color-font
   font-size 14px
+  overflow hidden
   nav
     width 200px
     background #444
@@ -98,6 +121,7 @@ export default {
   article
     height 100%
     flex 1
+    overflow auto
     header
       width 100%
       height $height-header

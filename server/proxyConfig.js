@@ -15,6 +15,14 @@ module.exports = {
 	},
 	"/timetable":{
 		prefix: PREFIX_API
-	}
-
+	},
+	"/wp":{
+		prefix: PREFIX_WP
+	},
+	"/user/list":{
+		prefix: PREFIX_API
+	},
+	"/user/passwd_reset":{
+		prefix: PREFIX_API
+	},
 }

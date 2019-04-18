@@ -7,6 +7,7 @@ const MUTATIONS =  "update_times";
 const store = {
   get($store,data,reset){
     let url = `/admin/tcalender_list/${util.url.stringify(data)}`;
+
     return api.get(url).then(res=>{
       let {idle_list, busy_list} = res;
 
@@ -15,9 +16,9 @@ const store = {
         item['_refreshing'] = false;
         item['_submiting'] = false;
         //--修改函数
-        item['_modifyHandler'] = (stime,etime)=>{
+        item['_modifyHandler'] = (stime,etime,uid)=>{
           item['_submiting'] = true;
-          return store.modify(item,stime,etime).then((res)=>{
+          return store.modify(item,stime,etime,uid).then((res)=>{
             if(res.result_code>=0){
               return store.get($store,data,reset).then(result=>res);
             }else{
@@ -72,7 +73,7 @@ const store = {
     return api.post(url,[sn]);
   },
 
-  modify(idle_item,stime,etime){  //更新一个时间
+  modify(idle_item,stime,etime,uid){  //更新一个时间
   	let data = {
   			"sn" : idle_item['teacher_calender_sn'],
   			"date_str" : idle_item['date_str'],//.replace(/-/g,''),
@@ -84,7 +85,7 @@ const store = {
   			"sdate" : idle_item['sdate'],
   			"edate" : idle_item['edate']
   	}
-    let url =`/admin/tcalender/uid/${window.user.uid}`;
+    let url =`/admin/tcalender/uid/${uid}`;
     return api.post(url,[data])
   },
 
@@ -105,9 +106,9 @@ const store = {
       "cache":{stime,etime},
     };
 
-    newobj['_modify'] = (stime1,etime1)=>{
+    newobj['_modify'] = (stime1,etime1,uid)=>{
       newobj['_submiting'] = true;
-      return store.modify(newobj,stime1,etime1).then(res=>{
+      return store.modify(newobj,stime1,etime1,uid).then(res=>{
         return res.result_code>=0 ? res : Promise.reject(res)
       }).catch(err=>{
         newobj['_submiting'] = false;

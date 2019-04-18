@@ -1,7 +1,4 @@
 
-let name ="libai";
-let age = "100";
-
 import Vue from "vue";
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
@@ -11,17 +8,18 @@ import VueLoading from 'vue-loading-template'; //--https://github.com/jkchao/vue
 import CreateAPI from 'vue-create-api' // https://github.com/cube-ui/vue-create-api/blob/master/README_zh-CN.md
 import Tooltip from 'vue-directive-tooltip';
 
-
 import App from './App.vue';
 import Loading from '../public/loading.vue';
 import Dialog from '../public/dialog.vue';
 import Calendar from '../public/calendar.vue';
 import Layer from '../public/layer.vue';
 import Pagination from "../public/pagination.vue";
+import User_Search from "../public/user_search.vue";
 
 import util from 'util';
 import routes from './routes.js';
 import store from './store.js';
+import config from './config.js';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
@@ -44,17 +42,19 @@ Vue.component('fs-loading',Loading);
 Vue.component('fs-calendar',Calendar);
 Vue.component('fs-layer',Layer);
 Vue.component('fs-pagination',Pagination);
+Vue.component('fs-user-search', User_Search);
 
-//--测试用
-// window.user = {
-// 	uid: "2115",
-// };
+let user_right = Object.keys(config.right).find(key=>config.right[key].includes(window.user.username)) || "teacher"
+window.user._right = user_right;
+window.user._links = config.links[user_right];
+
 Vue.mixin({
 	data(){
 		return {
 			user: window.user,
 		}
 	},
+
 	methods:{
 		$logout(){ //--登出操作
 			this.$confirm('Exit the account?',res=>{
@@ -86,14 +86,23 @@ Vue.mixin({
 
 //---load完成后启动应用
 window.addEventListener('load',()=>{
+	let _router = new VueRouter({routes,base:'/'});
+	let _store = new Vuex.Store(store)
 	let baseOptions = {
 			el: "#app",
 			render:function(h){
 				return h(App);
 			},
-      router : new VueRouter({routes,base:'/'}),
-      store : new Vuex.Store(store)
+      router : _router,
+      store : _store
 	};
+
+	//--路由全局守卫
+	_router.beforeEach((to, from, next) => {
+		let isok = window.user._links.some(item=>to.path.includes(item.path));  //--去的路径包含用户链接
+		isok ? next(true) : next(false);
+	})
+
 
 	new Vue(Object.assign({},baseOptions));
 })
