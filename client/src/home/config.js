@@ -25,11 +25,13 @@ export default {
     ],
 
     service:[
+      { path : '/classroom',title: 'Classroom',icon:"icon-zhuye"},
       { path : '/timeplan',title: 'Open Hours',icon:"icon-shijian1"},
+      { path : '/timetable',title: 'Schedule',icon:"icon-shijianrili1"},
+      { path : '/students',title: 'Student',icon:"icon-haoyouliebiao"},
       { path : "/school_timetable", title: "Timetables", icon: "icon-dingdan"},
-      { path : '/users',title: 'Users',icon:"icon-haoyouliebiao"},
+      { path : '/school_users',title: 'Users',icon:"icon-haoyouliebiao"},
       { path : '/school_teachers',title: 'Teachers',icon:"icon-fuwushoucang"},
-
     ],
 
     manager:[

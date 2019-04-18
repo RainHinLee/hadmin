@@ -44,7 +44,13 @@ Vue.component('fs-layer',Layer);
 Vue.component('fs-pagination',Pagination);
 Vue.component('fs-user-search', User_Search);
 
-let user_right = Object.keys(config.right).find(key=>config.right[key].includes(window.user.username)) || "teacher"
+let user_right = Object.keys(config.right).find(key=>{
+	console.log(config.right[key],window.user.username)
+	return config.right[key].includes(window.user.username)
+}) || "teacher"
+
+console.log('user_right',user_right)
+
 window.user._right = user_right;
 window.user._links = config.links[user_right];
 
