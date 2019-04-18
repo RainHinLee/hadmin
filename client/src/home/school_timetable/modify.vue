@@ -45,7 +45,7 @@
       </li>
 
       <li>
-        <p class="key">State:</p>
+        <p class="key">Status:</p>
         <p class="value">
           <select v-model="values.state">
             <option :value="item.value" v-for="item of states">{{item.text}}</option>
