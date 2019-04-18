@@ -16,7 +16,8 @@ const store = {
 
       timetable_list.forEach(item=>{  //---增加新的字段
         let date = moment(item.class_datetime,'YYYY-MM-DD HH:mm:ss');
-        let edate = moment(date).add(item.lesson_num * item.class_timelen,'minutes');
+        let edate = moment(date).add(item.class_timelen,'minutes');
+
         item['_date'] = date.format('YYYY-MM-DD');
         item['_stime'] = date.format('HH:mm');
         item['_etime'] = edate.format('HH:mm');
