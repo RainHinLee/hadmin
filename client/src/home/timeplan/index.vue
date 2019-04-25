@@ -159,6 +159,7 @@ export default {
           this.validate(data).then(()=>{
             data._submiting = true;
             return util.handlers.option.findUserByName(this.options.teacher).then(user=>{
+              console.log(user)
               return data._modifyHandler(stime,etime,user.uid);
             }).then(res=>{
               let {result_code,fail_list} = res;

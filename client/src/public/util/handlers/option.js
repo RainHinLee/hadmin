@@ -47,7 +47,10 @@ const store = {
   findUserByName(username){  //---通过username获取用户信息
     let url = `/user/list/userid/${username}`;
     return api.get(url).then(res=>{
-      return res.user_list.find(item=>item.username.toLowerCase()==username.toLowerCase())
+      let user = res.user_list.find(item=>{
+        return item.username.trim().toLowerCase()==username.trim().toLowerCase()
+      })
+      return user;
     })
   },
 

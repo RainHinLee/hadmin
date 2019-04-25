@@ -27,7 +27,11 @@
               </template>
               <template v-else>
                 <a @click="reset(item)">Reset</a>
+                <a>Orders</a>
+                <a>Teachers</a>
+                <a>Vacation</a>
                 <a :href="item._href" target="_blank">Account</a>
+
               </template>
             </td>
           </tr>
@@ -123,7 +127,7 @@ export default {
 
 <style lang="stylus" scoped="">
 .school_users
-  max-width 900px
+  max-width 960px
   padding-bottom 60px
   .headerbox
     height 50px
@@ -162,7 +166,7 @@ export default {
       padding-right 20px
       &:nth-of-type(1)
       &:nth-of-type(2)
-        width 200px
+        width 180px
       &:nth-of-type(3)
         width 300px
         padding-right 35px
