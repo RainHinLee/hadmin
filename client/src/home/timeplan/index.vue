@@ -38,7 +38,7 @@
                   <template v-if="item._editing">
                     <div class="selects">
                       <select v-model="item.cache.stime">
-                        <option v-for="time of timelist" :value="time">{{time}}</option>
+                        <option :value="time" v-for="time of timelist">{{time}}</option>
                       </select>
                       -
                       <select v-model="item.cache.etime">
@@ -87,7 +87,7 @@ export default {
   data(){
     return {
       day: moment().format('YYYY-MM-DD'),
-      timelist: util.hours(STIME,ETIME,60),
+      timelist: util.hours(STIME,ETIME,60).concat("23:59"),
       newlist: [],  //--增加新的时间点
       layer:{
         open: false,
@@ -159,7 +159,6 @@ export default {
           this.validate(data).then(()=>{
             data._submiting = true;
             return util.handlers.option.findUserByName(this.options.teacher).then(user=>{
-              console.log(user)
               return data._modifyHandler(stime,etime,user.uid);
             }).then(res=>{
               let {result_code,fail_list} = res;
@@ -170,7 +169,6 @@ export default {
               }
             })
           }).catch(err=>{
-            console.log(err.stack)
             data['_editing'] = true;
             data['_submiting'] = false;
             data['stime'] = cache.stime;
@@ -208,7 +206,7 @@ export default {
         return this.$alert("Expiration time!")
       }
 
-      let newobj= util.handlers.times.generateObj(this.day,'00:00',"23:00");
+      let newobj= util.handlers.times.generateObj(this.day,'00:00',"23:59");
       newobj['_modifyHandler'] = (stime,etime,uid)=>{
         return newobj._modify(stime,etime,uid).then(res=>{
           return this.fetchTimesHandler().then(()=>{ //--更新数据
