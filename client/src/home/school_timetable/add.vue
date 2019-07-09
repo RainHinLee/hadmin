@@ -147,9 +147,10 @@ export default {
     },
 
     types(){
+      
       return [
         {text:"General",value:"1"},
-        {text:"Special",value:"4"},
+        {text:"Special",value:"2"},
         {text:"Trial",value:"3"}
       ]
     },

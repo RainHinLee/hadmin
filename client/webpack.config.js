@@ -15,7 +15,6 @@ const StringReplacePlugin = require("string-replace-webpack-plugin");
 const TYPE = process.argv.includes('--env.test') ? "test" : "release";
 const PATTERNS = TYPE=="test" ? config.patterns.test : config.patterns.release;  //--- ajax请求api域名
 
-console.log(TYPE,PATTERNS)
 //--- entry 入口文件
 function getEntryFiles(){
 	let result ={};
