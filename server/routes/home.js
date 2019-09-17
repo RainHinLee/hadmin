@@ -5,6 +5,10 @@ var file = path.resolve(__dirname,'../views/index.html')
 var config = require('./config.js');
 
 module.exports = function (req,res){
+
+	res.redirect("https://www.hanbridgemandarin.com/user/login");
+
+	return
 	if(req.user.uid){
 		var html = fs.readFileSync(file,'utf8').split('</head>')
 		var injectHtml = `

@@ -16,7 +16,7 @@ Object.keys(proxyConfig).forEach(item=>{
   let {prefix} = proxyConfig[item];  //--handler可以为Promise
   app.use(item,httpProxy(PROXY_HOST,{
     proxyReqPathResolver(req,res){
-      // console.log(`/${prefix}${req.originalUrl}`);
+      console.log(`/${prefix}${req.originalUrl}`);
       return `/${prefix}${req.originalUrl}`;
     }
   }))
